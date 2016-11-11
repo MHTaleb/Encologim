@@ -466,8 +466,7 @@ public class JTableSQLTool {
                 }
                 //</editor-fold> // jtable mouse listener
             } else if (Field instanceof JCheckBox) {
-                
-                
+
                 try {
                     JCheckBox jCheckBox = (JCheckBox) Field;
                     Table.addMouseListener(new MouseListener() {
@@ -480,12 +479,11 @@ public class JTableSQLTool {
                                     jCheckBox.getName()).charAt(GetCorrespondingColumn(Table, jCheckBox.getName()).length() - 1)));
                             System.out.println("Table Object :" + valueAt);
                             try {
-                                jCheckBox.setSelected((int) valueAt==0);
+                                jCheckBox.setSelected(!((int) valueAt == 0));
 
                             } catch (Exception e) {
-                                
-                                    e.printStackTrace();
-                                
+
+                                e.printStackTrace();
 
                             }
 
@@ -517,7 +515,7 @@ public class JTableSQLTool {
                     MyLogger.Log_to_local("Retreiving list of listeners");
                     MyLogger.Log_to_local(e);
                 }
-                
+
             }
         }
 
