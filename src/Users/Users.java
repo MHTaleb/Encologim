@@ -136,7 +136,7 @@ public class Users extends javax.swing.JFrame {
         J_User_Name.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         J_User_Name.setText("Utilisateur :");
 
-        J_users_UserName.setText("users_PROFILE");
+        J_users_UserName.setText("users_USERNAME");
 
         JL_EditMode_Title.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         JL_EditMode_Title.setText("  Mode ");

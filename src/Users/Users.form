@@ -218,7 +218,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="J_users_UserName">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="users_PROFILE"/>
+                        <Property name="text" type="java.lang.String" value="users_USERNAME"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="JL_EditMode_Title">
