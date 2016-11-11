@@ -1,0 +1,72 @@
+  System.out.println("binding jcombobox");
+                        JComboBox jComboBox = (JComboBox) Field;
+
+                        BeanProperty<JComboBox, Integer> BindingFieldProperty;
+                        Binding<JTable, Object, JComboBox, Integer> binding;
+                        DesignCallID = jComboBox.getName();
+                        PropertyName = "selectedElement." + GetCorrespondingColumn(Table, DesignCallID);
+                        System.out.println("property name =" + PropertyName.trim());
+
+                        tableBeanProperty = BeanProperty.create(PropertyName);
+                        BindingFieldProperty = BeanProperty.create("selectedItem");
+                        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE,
+                                Table,
+                                tableBeanProperty,
+                                jComboBox,
+                                BindingFieldProperty);
+                        Converter<Object, Integer> old = binding.getConverter();
+
+                        Converter<Object, Integer> converter = new Converter<Object, Integer>() {
+                            @Override
+                            public Integer convertForward(Object value) {
+                                try {
+
+                                    if (value instanceof HashMap) {
+                                        HashMap hashMap = (HashMap) value;
+                                        System.out.println(hashMap);
+                                        // Object get = hashMap.get(GetCorrespondingColumn(Table, DesignCallID));
+                                        return Integer.parseInt(""+hashMap.get(GetCorrespondingColumn(Table, DesignCallID)));
+
+                                    } else if (value instanceof String) {
+                                        return Integer.parseInt(""+value);
+                                    } else if (value instanceof Integer) {
+                                        Integer integer = (Integer) value;
+                                        return integer;
+                                    } else if (value instanceof Float) {
+                                        Float float1 = (Float) value;
+                                        return  float1.intValue();
+                                    } else if (value instanceof Double) {
+                                        Double double1 = (Double) value;
+                                        return double1.intValue();
+                                    } else if (value instanceof Date) {
+                                        Date date = (Date) value;
+                                        MyLogger.Log_to_local(new Exception("Binding Class Not Handled" + value.getClass().getName()));
+                                        return 1;
+                                    }
+                                    MyLogger.Log_to_local(new Exception("Binding Class Not Handled" + value.getClass().getName()));
+                                    return 1;
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    MyLogger.Log_to_local(e);
+
+                                }
+                                return 1;
+                            }
+
+                            @Override
+                            public Object convertReverse(Integer value) {
+                                try {
+                                    return value;
+
+                                } catch (Exception e) {
+
+                                    e.printStackTrace();
+
+                                }
+                                return null;
+                            }
+
+                        };
+                        binding.setConverter(converter);
+                        binding.bind();
