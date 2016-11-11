@@ -466,7 +466,57 @@ public class JTableSQLTool {
                 }
                 //</editor-fold> // jtable mouse listener
             } else if (Field instanceof JCheckBox) {
-                JCheckBox jCheckBox = (JCheckBox) Field;
+                
+                
+                try {
+                    JCheckBox jCheckBox = (JCheckBox) Field;
+                    Table.addMouseListener(new MouseListener() {
+                        @Override
+                        public void mouseClicked(MouseEvent me) {
+                            System.out.println("event started for " + jCheckBox.getName());
+                            int selectedRow = Table.getSelectedRow();
+                            System.out.println("table selected row" + selectedRow);
+                            Object valueAt = Table.getValueAt(selectedRow, Integer.parseInt("" + GetCorrespondingColumn(Table,
+                                    jCheckBox.getName()).charAt(GetCorrespondingColumn(Table, jCheckBox.getName()).length() - 1)));
+                            System.out.println("Table Object :" + valueAt);
+                            try {
+                                jCheckBox.setSelected((int) valueAt==0);
+
+                            } catch (Exception e) {
+                                
+                                    e.printStackTrace();
+                                
+
+                            }
+
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent me) {
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent me) {
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent me) {
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent me) {
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    MyLogger.Log_to_local("Retreiving list of listeners");
+                    MyLogger.Log_to_local(e);
+                }
                 
             }
         }
