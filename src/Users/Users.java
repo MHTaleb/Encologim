@@ -44,7 +44,7 @@ public class Users extends javax.swing.JFrame {
     };
 
     private final Object[] getBindingFields() {
-        Object[] BindingFields = new Object[]{J_users_UserName, J_Users_PassConfirm, J_Users_Profile, J_Users_State};
+        Object[] BindingFields = new Object[]{J_users_UserName, J_Users_PassConfirm,J_Users_Pass, J_Users_Profile, J_Users_State};
         return BindingFields;
     }
     
