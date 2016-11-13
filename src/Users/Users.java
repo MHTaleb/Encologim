@@ -120,7 +120,7 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        J_User_Search_Value = new javax.swing.JTextField();
         J_Users_Filter = new javax.swing.JComboBox<>();
         JL_Delete = new javax.swing.JLabel();
         JL_Edit = new javax.swing.JLabel();
@@ -215,18 +215,11 @@ public class Users extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_User_Name4)
-                        .addGap(248, 248, 248))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_User_Name3)
-                        .addGap(248, 248, 248))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_User_Name2)
-                        .addGap(248, 248, 248))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_User_Name)
-                        .addGap(248, 248, 248))))
+                    .addComponent(J_User_Name4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(J_User_Name3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(J_User_Name2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(J_User_Name, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(248, 248, 248))
         );
         J_Panel_EditLayout.setVerticalGroup(
             J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,10 +287,12 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(J_Table_Users);
 
+        jPanel4.setName("SimpleSearchPanel"); // NOI18N
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Rechercher :");
 
-        jTextField2.setText("jTextField2");
+        J_User_Search_Value.setText("jTextField2");
 
         J_Users_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -309,7 +304,7 @@ public class Users extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2)
+                .addComponent(J_User_Search_Value)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -320,7 +315,7 @@ public class Users extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(J_User_Search_Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -553,6 +548,7 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JLabel J_User_Name3;
     private javax.swing.JLabel J_User_Name4;
     private javax.swing.JLabel J_User_Name5;
+    private javax.swing.JTextField J_User_Search_Value;
     private javax.swing.JComboBox<String> J_Users_Filter;
     private javax.swing.JPasswordField J_Users_Pass;
     private javax.swing.JPasswordField J_Users_PassConfirm;
@@ -567,6 +563,5 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

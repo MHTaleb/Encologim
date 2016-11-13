@@ -16,7 +16,12 @@ import java.sql.SQLException;
 public class JDBCConnectionPool extends ObjectPool<Connection> {
 
   private String dsn, usr, pwd;
-
+  
+  
+  public String GetConnexionInfo(){
+      return dsn+"-"+usr+"-"+pwd;
+  }
+  
   public JDBCConnectionPool(String driver, String dsn, String usr, String pwd) {
     super();
     try {

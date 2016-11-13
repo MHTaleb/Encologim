@@ -18,13 +18,13 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Hashtable;
 import javax.swing.Action;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -45,6 +45,13 @@ public class JTableSQLTool {
 
     private static Hashtable<JTable, ArrayList<Action>> MyAllListeners;
 
+    public static ResultSet AttachSearchPanel(String Query, JPanel SeachPanel, JTable table){
+        
+        
+        
+        return null;
+    }
+    
     public static ResultSet FillTableDataFromQuery(String Query, JTable table) throws SQLException {
         try {
 

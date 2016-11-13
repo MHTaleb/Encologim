@@ -57,12 +57,19 @@ public class Authentificator {
     }
 
     public static boolean DoRegister(String User, String Pass) {
+        try {
+          SQLTools.Setup();
         String Query = "INSERT INTO users(USERNAME, PASSWORD,PROFILE,STATE) VALUES("
                 + "\"" + User
                 + "\", MD5(\"" + Pass
                 + "\"),1,0);";
         SQLTools.ExecuteQuery(Query);
-        return true;
+         return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            MyLogger.Log_to_local(e);
+        }
+        return false;
     }
 
 }

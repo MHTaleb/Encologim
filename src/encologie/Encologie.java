@@ -9,7 +9,7 @@ import ExceptionLogging.MyLogger;
 import FrameDecorator.MyDecorator;
 import MyLibraries.SQL.SQLTools;
 import Properties.Properties_Bundel;
-import UI.Authentificate;
+import AuthentificationTools.Authentificate;
 import UI.Main;
 
 /**

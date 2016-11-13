@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package AuthentificationTools;
 
 import AuthentificationTools.Authentificator;
 import ExceptionLogging.MyLogger;
 import FrameDecorator.MyDecorator;
 import Properties.Properties_Bundel;
+import UI.Main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -256,7 +257,7 @@ public class Authentificate extends javax.swing.JFrame {
                 J_Pass.requestFocus();
                 return;
             }
-            
+            this.setAlwaysOnTop(false);
             String state = Authentificator.DoAuthentificate(J_User.getText(), J_Pass.getText());
             
             if (state.equals("true")) {
@@ -311,6 +312,7 @@ public class Authentificate extends javax.swing.JFrame {
 
             //</editor-fold>
             if (Authentificator.DoRegister(J_User_Sign.getText(), J_Pass_Confirm.getText())) {
+                Properties_Bundel.setPropertiesBundelRessource(Properties_Bundel.Strings);
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString(Properties_Bundel.Strings_Register_Success));
                 jTabbedPane1.setSelectedIndex(0);
                 return;

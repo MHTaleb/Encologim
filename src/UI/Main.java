@@ -5,6 +5,7 @@
  */
 package UI;
 
+import AuthentificationTools.Authentificate;
 import ExceptionLogging.MyLogger;
 import FrameDecorator.MyDecorator;
 import Users.Users;

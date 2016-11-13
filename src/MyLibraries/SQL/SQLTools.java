@@ -5,10 +5,12 @@
  */
 package MyLibraries.SQL;
 
+import DataBaseIstall.DBInstall;
 import MyLibraries.JDBCConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +20,6 @@ public class SQLTools {
 
     private static JDBCConnectionPool pool;
 
-    
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/encologim";
@@ -30,7 +31,6 @@ public class SQLTools {
     public SQLTools() {
     }
 
-    
     public static void Setup() {
         if (pool != null) {
             return;
@@ -38,47 +38,73 @@ public class SQLTools {
         pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS);
     }
 
-    
     // void n est pas un mot clé qui site une fonction qui nas pas de retour
     // mais en realité c est un type de retour qui représente un etat vide
     // c pourcela kayen return
-    public static void Setup(String DB_URL,String USER,String PASS) {
+    public static void Setup(String DB_URL, String USER, String PASS) {
         // Si la connexion est deja faite alors en termine la methode
         if (pool != null) {
+            String GetConnexionInfo = pool.GetConnexionInfo();
+            if (!GetConnexionInfo.toLowerCase().equals((DB_URL + "-" + USER + "-" + PASS).toLowerCase())) {
+                pool = null;
+                pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS);
+            }
             return;// ici si j ai deja creer un pool alors pas besoin d un autre je termine l execution
         }
-        
+
         pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS); // sinon je creer un pool de connexion
     }
-    
-    
+
     public static ResultSet ExecuteQuery(String Query) {
 
         try {
 
             // je recupere l une de mes connexion disponible
-            Connection con = pool.checkOut();
+            Connection con;
+            try {
+
+                con = pool.checkOut();
+
+            } catch (Exception e) {
+                //e.printStackTrace();
+                try {
+                    JOptionPane.showConfirmDialog(null, "please before Database Installation check that you have "
+                            + "\nWamp server installaed or Mysql ");
+                    DBInstall.InstallDatabase();
+
+                    con = pool.checkOut();
+
+                } catch (Exception ex) {
+                    // ex.printStackTrace();
+                    return null;
+                }
+
+            }
 
             // depuis cette connexion je prepare mon SQL Statement ( disant que c ets un mechanisme
             // qui est intermédiaire entre moteur mysql et mon appli
-            PreparedStatement ps = con.prepareStatement(Query,  ResultSet.TYPE_FORWARD_ONLY,
-                                  ResultSet.CONCUR_UPDATABLE);//concur updatable sert a mettre des mise a jour
+            PreparedStatement ps = con.prepareStatement(Query, ResultSet.TYPE_FORWARD_ONLY,
+                    ResultSet.CONCUR_UPDATABLE);//concur updatable sert a mettre des mise a jour
             // si je modifie le resultat de ma requete depui mon appli il change direct dans la BDD mysql
-            
-            if (Query.toLowerCase().contains("insert")) { // si la requete insert
+
+            if (Query.toLowerCase().contains("INSERT".toLowerCase())
+                    || Query.toLowerCase().contains("CREATE".toLowerCase())
+                    || Query.toLowerCase().contains("UPDATE".toLowerCase())
+                    || Query.toLowerCase().contains("DELETE FROM".toLowerCase())) { // si la requete insert ou create database
                 ps.executeUpdate(); // j execute avec update c est un mecanisme de l api jdbc
             } else {
+                System.out.println(Query);
                 ResultSet rs = ps.executeQuery(); //sinon c ets un SELECT alors ta3o c est execute
-                 pool.checkIn(con); // je me rend compte que je l ai oublié lol lazem nzido hna 
-                 //en cas que c est une requete select une fois fini il faut que je rend la connexion prise
+                pool.checkIn(con); // je me rend compte que je l ai oublié lol lazem nzido hna 
+                //en cas que c est une requete select une fois fini il faut que je rend la connexion prise
                 return rs;
             }
 
             pool.checkIn(con); // rendre la ressource occupé
-            
 
         } catch (Exception e) {
             e.printStackTrace();
+
         }
         return null;
     }
