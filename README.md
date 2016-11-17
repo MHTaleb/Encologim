@@ -12,10 +12,7 @@ Taleb Mohammed Housseyn
 
 TalCorpdz@gmail.com
 
-# Install
-
-Simple create database called encologim from the sql file int src/DatabaseDump
-run project
+#requierement
 
 use latest jdk and netbeans 
 
@@ -23,5 +20,9 @@ use latest jdk and netbeans
 
 as soon as possible I will write a tutorial support
 feel free to contact me TalCorpdz@gmail.com
+
+#Install
+  first : download and install wampserver or any mysql engine by your choice
+  second : launch the project from encologie.java  that will create the database and minimum data
 
 # User and Password are    "talcorp"  "123456789"
