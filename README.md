@@ -23,3 +23,5 @@ use latest jdk and netbeans
 
 as soon as possible I will write a tutorial support
 feel free to contact me TalCorpdz@gmail.com
+
+# User and Password are    "talcorp"  "123456789"
