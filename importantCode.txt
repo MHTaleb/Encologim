@@ -1,0 +1,49 @@
+public class DataFilterReport {
+
+	public DataFilterReport() {
+		build();
+	}
+
+	private void build() {
+		try {
+			report()
+				.setTemplate(Templates.reportTemplate)
+			  .columns(
+			  	col.column("Item",       "item",      type.stringType()),
+			  	col.column("Quantity",   "quantity",  type.integerType()),
+			  	col.column("Unit price", "unitprice", type.bigDecimalType()))
+			  .title(Templates.createTitleComponent("DataFilter"))
+			  .pageFooter(Templates.footerComponent)
+			  .setFilterExpression(new FilterExpression())
+			  .setDataSource(createDataSource())
+			  .show();
+		} catch (DRException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private JRDataSource createDataSource() {
+		DRDataSource dataSource = new DRDataSource("item", "quantity", "unitprice");
+		dataSource.add("DVD", 5, new BigDecimal(30));
+		dataSource.add("DVD", 1, new BigDecimal(28));
+		dataSource.add("DVD", 5, new BigDecimal(32));
+		dataSource.add("Book", 3, new BigDecimal(11));
+		dataSource.add("Book", 1, new BigDecimal(15));
+		dataSource.add("Book", 5, new BigDecimal(10));
+		dataSource.add("Book", 8, new BigDecimal(9));
+		return dataSource;
+	}
+
+	public static void main(String[] args) {
+		new DataFilterReport();
+	}
+
+	private class FilterExpression extends AbstractSimpleExpression<Boolean> {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Boolean evaluate(ReportParameters reportParameters) {
+			return reportParameters.getValue("item").equals("Book");
+		}
+	}
+}
