@@ -5,7 +5,30 @@
  */
 package tutorial;
 
-import MyLibraries.JPanelTools.JPanelTools;
+import ExceptionLogging.MyLogger;
+import MyLibraries.JtableTools.JTableSQLTool;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static net.sf.dynamicreports.report.builder.DynamicReports.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import net.sf.dynamicreports.examples.Templates;
+import net.sf.dynamicreports.report.base.expression.AbstractSimpleExpression;
+import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
+import net.sf.dynamicreports.report.datasource.DRDataSource;
+import net.sf.dynamicreports.report.definition.ReportParameters;
+import net.sf.dynamicreports.report.exception.DRException;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+
 
 /**
  *
@@ -16,10 +39,24 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    ResultSet J_Table_UsersRS;
+    
     public NewJFrame() {
         initComponents();
     }
+ public final void InitFrame() throws SQLException {
 
+        
+        try {
+
+            J_Table_UsersRS = JTableSQLTool.FillTableDataFromQuery("SELECT * FROM users", jTable1);
+            //JTableSQLTool.BindTableToFields(jTable1, getBindingFields());
+            //JTableSQLTool.HideColumns(jTable1, HideColumns);
+        } catch (Exception e) {
+            MyLogger.Log_to_local(e);
+        }
+        pack();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,8 +68,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
         JemptyPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,17 +89,23 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
-        jButton1.setText("Show");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Help");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+        jButton2.setText("Print");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -70,21 +114,20 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jButton1)
-                .addContainerGap(386, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -106,18 +149,106 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        MyDesignedPanel myPanel = new MyDesignedPanel();
-        JPanelTools.ShowPanel(JemptyPanel, myPanel);
-        //myPanel.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private JRDataSource createDataSource() throws SQLException, JRException {
+      ArrayList<String> heads= new ArrayList<>();
+        Enumeration<TableColumn> columns = jTable1.getColumnModel().getColumns();
+        //jTable1.getColumnModel().getColumn(i).getHeaderValue()
+        ArrayList<Integer> Indexes = new ArrayList<Integer>();
+        int i =0;
+        while (columns.hasMoreElements()) {
+            TableColumn nextColumn = columns.nextElement();
+            if (nextColumn.getMaxWidth()!=0) {
+                heads.add(""+nextColumn.getHeaderValue());
+                Indexes.add(i);
+            }
+            i++;
+        }
+        String[] Headers = new String[heads.size()];
+        for (int j = 0; j < heads.size(); j++) {
+            Headers[j]= heads.get(j);
+        }
+        
+        System.out.println("*******************************\n"
+                + "      "+heads+"\n******************************");
+        Integer[] ChoosenIndexes = new Integer[Indexes.size()];
+	for (int j = 0; j < Indexes.size(); j++) {
+            ChoosenIndexes[j]= Indexes.get(j);
+        }
+        
+        DRDataSource dataSource = new DRDataSource(Headers);
+        
+        J_Table_UsersRS.first();
+        while (J_Table_UsersRS.next()) {
+            Object[] Values= new Object[ChoosenIndexes.length];
+            for (int j = 0; j < ChoosenIndexes.length; j++) {
+                Values[j] = J_Table_UsersRS.getObject(ChoosenIndexes[j]+1);
+            }
+            dataSource.add(Values);
+        }
+//		dataSource.add("DVD", 5, new BigDecimal(30));
+//		dataSource.add("DVD", 1, new BigDecimal(28));
+//		dataSource.add("DVD", 5, new BigDecimal(32));
+//		dataSource.add("Book", 3, new BigDecimal(11));
+//		dataSource.add("Book", 1, new BigDecimal(15));
+//		dataSource.add("Book", 5, new BigDecimal(10));
+//		dataSource.add("Book", 8, new BigDecimal(9));
+		return dataSource;
+	}
+    
+    private class FilterExpression extends AbstractSimpleExpression<Boolean> {
+		private static final long serialVersionUID = 1L;
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+		@Override
+		public Boolean evaluate(ReportParameters reportParameters) {
+			return reportParameters.getValue("item").equals("Book");
+		}
+	}
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        MyDesignedPanelHelp myPanel = new MyDesignedPanelHelp();
-        JPanelTools.ShowPanel(JemptyPanel, myPanel);
-    }//GEN-LAST:event_jLabel1MouseClicked
+        try {
+      
+            ArrayList<String> heads= new ArrayList<>();
+        Enumeration<TableColumn> columns = jTable1.getColumnModel().getColumns();
+        //jTable1.getColumnModel().getColumn(i).getHeaderValue()
+        ArrayList<Integer> Indexes = new ArrayList<Integer>();
+        int i =0;
+        while (columns.hasMoreElements()) {
+            TableColumn nextColumn = columns.nextElement();
+            if (nextColumn.getMaxWidth()!=0) {
+                heads.add(""+nextColumn.getHeaderValue());
+                Indexes.add(i);
+            }
+            i++;
+        }
+        String[] Headers = new String[heads.size()];
+        for (int j = 0; j < heads.size(); j++) {
+            Headers[j]= heads.get(j);
+        }
+      
+        
+            TextColumnBuilder<String> column = col.column("Item",       "item",      type.stringType());
+            
+			report()
+				.setTemplate(Templates.reportTemplate)
+			  .columns(
+			  	col.column(Headers[0],       Headers[0],      type.stringType()),
+			  	col.column(Headers[1],   Headers[1],  type.integerType()),
+			  	col.column(Headers[2], Headers[2], type.bigDecimalType()))
+			  .title(Templates.createTitleComponent("DataFilter"))
+			  .pageFooter(Templates.footerComponent)
+			  //.setFilterExpression(new FilterExpression())
+			  .setDataSource(createDataSource())
+			  .show();
+		} catch (DRException e) {
+			e.printStackTrace();
+		} catch (SQLException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,8 +287,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JemptyPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

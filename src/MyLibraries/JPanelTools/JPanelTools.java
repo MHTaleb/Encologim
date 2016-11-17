@@ -5,13 +5,20 @@
  */
 package MyLibraries.JPanelTools;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -68,5 +75,27 @@ public class JPanelTools {
                 MyFrame.setExtendedState(extendedState);
             }
         }
+    }
+    
+    public static final void linkSearchPanelToTable(JPanel mySearchPanel,JTable mySearchTable, ResultSet myJtableResultSet){
+        Component[] components = mySearchPanel.getComponents();
+        JTextField searchingField = null;
+        JComboBox searchFilter;
+        for (Component component : components) {
+            if (component instanceof JTextField) {
+                 searchingField = (JTextField) component;
+            }
+            if (component instanceof JComboBox) {
+                 searchFilter = (JComboBox) component;
+                
+            }
+        }
+        searchingField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                //myJtableResultSet.           // i m stick here
+            }
+            
+});
     }
 }

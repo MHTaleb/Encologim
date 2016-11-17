@@ -98,7 +98,11 @@ public class Properties_Bundel {
     public static String getString(final String key) {
         try {
             System.out.println("properties_bundle ("+key+")");
-            return mainBundle.getString(key);
+            String Resolved = mainBundle.getString(key);
+            if (Resolved.contains("_ID")) {
+                Resolved=Resolved.replaceAll("_ID", " ");
+            }
+            return Resolved;
         }
         catch (Exception mre) {
             mre.printStackTrace();

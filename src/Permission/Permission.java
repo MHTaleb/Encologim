@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Users;
+package Permission;
 
+import Users.*;
 import ExceptionLogging.MyLogger;
 import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author polina
  */
-public class Users extends javax.swing.JFrame {
+public class Permission extends javax.swing.JFrame {
 
     /**
      * Creates new form Users
@@ -28,7 +29,7 @@ public class Users extends javax.swing.JFrame {
     private final int Edit_mode = 1;
     private int mode;
 
-    public Users() throws SQLException {
+    public Permission() throws SQLException {
         initComponents();
     }
     private ResultSet J_Table_UsersRS;
@@ -292,6 +293,8 @@ public class Users extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Rechercher :");
 
+        J_User_Search_Value.setText("jTextField2");
+
         J_Users_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -509,23 +512,24 @@ public class Users extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Permission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Permission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Permission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Permission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Users().setVisible(true);
+                    new Permission().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Permission.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
