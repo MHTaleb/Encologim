@@ -5,6 +5,7 @@
  */
 package MyLibraries.JPanelTools;
 
+import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
 import java.awt.Component;
 import java.awt.Container;
@@ -15,6 +16,9 @@ import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -58,6 +62,7 @@ public class JPanelTools {
         object.repaint();
         object.show();
 
+       
         Container Frame = target.getParent();
         Container Current = target.getParent();
         while ((Current != null)) {
@@ -78,7 +83,7 @@ public class JPanelTools {
         }
     }
 
-    public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable, final ResultSet myJtableResultSet) {
+    public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable , final String[] HideColumns, final ResultSet myJtableResultSet ,final String[] whereSelectionValues) {
         Component[] components = mySearchPanel.getComponents();
         JTextField searchingField = null;
         JComboBox searchFilter = null;
@@ -110,11 +115,19 @@ public class JPanelTools {
                         }
 
                     } catch (Exception e) {
-                        e.printStackTrace();
+                       // e.printStackTrace();
                     }
-                    query += " WHERE " + EventFilter.getSelectedItem().toString() + " = ";
-                    query +=(Choice==0)?"\""+text+"\"":text;
+                    query = query.replace(";", "");
+                    query += " WHERE " + whereSelectionValues[EventFilter.getSelectedIndex()];
+                    query +=(Choice==0)?" LIKE \"%"+text+"%\";":"="+text+";";
+                    System.out.println("Query is :"+query);
                 }
+                    try {
+                        JTableSQLTool.FillTableDataFromQuery(query, mySearchTable);
+                        JTableSQLTool.HideColumns(mySearchTable, HideColumns);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(JPanelTools.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
             }
 

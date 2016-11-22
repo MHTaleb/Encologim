@@ -5,8 +5,12 @@
  */
 package MyLibraries.JPanelTools;
 
+import static MyLibraries.JPanelTools.JPanelTools.linkSearchPanelToTable;
+import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
 import java.sql.ResultSet;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 
 /**
@@ -21,10 +25,18 @@ public class SimpleSearchPanel extends javax.swing.JPanel {
     public SimpleSearchPanel() {
         initComponents();
     }
-    String[] QueryFilterFields;
-    public void SetupSearchPanel(JTable searcheableTable,ResultSet searchableResultSet,String[] QueryFilterFields){
-        this.QueryFilterFields=QueryFilterFields;
-        String Query = SQLTools.getQuery(searchableResultSet);
+    
+    public void SetupSearchPanel(JTable searcheableTable,String[] HideColumns,ResultSet searchableResultSet,String[] QueryFilterFields,String[] visualSelectionFields){
+        
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) J_Users_Filter.getModel();
+        model.removeAllElements();
+        for (String visualSelectionField : visualSelectionFields) {
+            
+            model.addElement(visualSelectionField);
+        }
+
+        linkSearchPanelToTable(this, searcheableTable,HideColumns, searchableResultSet,QueryFilterFields);
+        
         
     }
     

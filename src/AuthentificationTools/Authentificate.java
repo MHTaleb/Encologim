@@ -261,13 +261,13 @@ public class Authentificate extends javax.swing.JFrame {
     private void J_ConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_ConnectActionPerformed
         // TODO add your handling code here:
         try {
-            
+
             if (J_User.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString("J_User"));
                 J_User.requestFocus();
                 return;
             }
-            
+
             if (J_Pass.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString("J_Pass"));
                 J_Pass.requestFocus();
@@ -275,7 +275,7 @@ public class Authentificate extends javax.swing.JFrame {
             }
             this.setAlwaysOnTop(false);
             String state = Authentificator.DoAuthentificate(J_User.getText(), J_Pass.getText());
-            
+
             if (state.equals("true")) {
                 J_Pass.setText("");
                 J_User.setText("");
@@ -307,19 +307,19 @@ public class Authentificate extends javax.swing.JFrame {
                 J_User_Sign.requestFocus();
                 return;
             }
-            
+
             if (J_Pass_Sign.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString("J_Pass_Sign"));
                 J_Pass_Sign.requestFocus();
                 return;
             }
-            
+
             if (J_Pass_Confirm.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString("J_Pass_Confirm"));
                 J_Pass_Confirm.requestFocus();
                 return;
             }
-            
+
             if (!J_Pass_Sign.getText().equals(J_Pass_Confirm.getText())) {
                 JOptionPane.showMessageDialog(this, Properties_Bundel.getString(Properties_Bundel.Strings_Confirm_Fail));
                 J_Pass_Confirm.requestFocus();
@@ -336,7 +336,7 @@ public class Authentificate extends javax.swing.JFrame {
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
-        
+
     }//GEN-LAST:event_J_ValidateActionPerformed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
@@ -345,7 +345,7 @@ public class Authentificate extends javax.swing.JFrame {
 
     private void J_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_UserActionPerformed
         // TODO add your handling code here:
-          J_Connect.doClick();
+        J_Connect.doClick();
     }//GEN-LAST:event_J_UserActionPerformed
 
     private void J_PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_PassActionPerformed

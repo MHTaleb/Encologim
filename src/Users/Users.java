@@ -6,6 +6,8 @@
 package Users;
 
 import ExceptionLogging.MyLogger;
+import MyLibraries.JPanelTools.JPanelTools;
+import MyLibraries.JPanelTools.SimpleSearchPanel;
 import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
 import Properties.Properties_Bundel;
@@ -32,6 +34,8 @@ public class Users extends javax.swing.JFrame {
         initComponents();
     }
     private ResultSet J_Table_UsersRS;
+     private final String[] SearchFilter = new String[]{"u.USERNAME","p.TITRE","us.TITRE"};
+     private final String[] VisualFilter = new String[]{"Nom d'utilisateur","Profile","Etat"};
 
      private final String[] HideColumns = new String[]{
         
@@ -65,6 +69,11 @@ public class Users extends javax.swing.JFrame {
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
+        
+        SimpleSearchPanel SSP = new SimpleSearchPanel();
+        SSP.SetupSearchPanel(J_Table_Users,HideColumns, J_Table_UsersRS, SearchFilter,VisualFilter);
+        JPanelTools.ShowPanel(JSearchPanel, SSP);
+        
         pack();
     }
 
@@ -119,7 +128,7 @@ public class Users extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         J_Table_Users = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        JSearchPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         J_User_Search_Value = new javax.swing.JTextField();
         J_Users_Filter = new javax.swing.JComboBox<>();
@@ -288,18 +297,18 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(J_Table_Users);
 
-        jPanel4.setName("SimpleSearchPanel"); // NOI18N
+        JSearchPanel.setName("SimpleSearchPanel"); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Rechercher :");
 
         J_Users_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout JSearchPanelLayout = new javax.swing.GroupLayout(JSearchPanel);
+        JSearchPanel.setLayout(JSearchPanelLayout);
+        JSearchPanelLayout.setHorizontalGroup(
+            JSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JSearchPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,11 +317,11 @@ public class Users extends javax.swing.JFrame {
                 .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        JSearchPanelLayout.setVerticalGroup(
+            JSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JSearchPanelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(JSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(J_User_Search_Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -355,7 +364,7 @@ public class Users extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JSearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -371,7 +380,7 @@ public class Users extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,6 +550,7 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JLabel JL_Edit;
     private javax.swing.JLabel JL_EditMode_Title;
     private javax.swing.JLabel JL_Exit;
+    private javax.swing.JPanel JSearchPanel;
     private javax.swing.JPanel J_Panel_Edit;
     private javax.swing.JTable J_Table_Users;
     private javax.swing.JLabel J_User_Name;
@@ -559,7 +569,6 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
