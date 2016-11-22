@@ -38,7 +38,7 @@ public class Users extends javax.swing.JFrame {
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_ID,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
+      //  Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
     };
@@ -61,6 +61,7 @@ public class Users extends javax.swing.JFrame {
             J_Table_UsersRS = JTableSQLTool.FillTableDataFromQuery(query, J_Table_Users);
             JTableSQLTool.BindTableToFields(J_Table_Users, getBindingFields());
             JTableSQLTool.HideColumns(J_Table_Users, HideColumns);
+            System.out.println("InitFrameDone");
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
@@ -441,6 +442,7 @@ public class Users extends javax.swing.JFrame {
 
     private void JL_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JL_ExitMouseClicked
         // TODO add your handling code here:
+        SQLTools.removeQuery(J_Table_UsersRS);
         this.dispose();
     }//GEN-LAST:event_JL_ExitMouseClicked
 

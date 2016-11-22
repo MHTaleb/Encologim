@@ -10,7 +10,9 @@ import MyLibraries.JDBCConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Hashtable;
 import javax.swing.JOptionPane;
+import org.apache.batik.dom.util.HashTable;
 
 /**
  *
@@ -32,10 +34,14 @@ public class SQLTools {
     }
 
     public static void Setup() {
-        if (pool != null) {
-            return;
+        if (Queries == null) {
+
+            Queries = new Hashtable<>();
         }
-        pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS);
+        if (pool == null) {
+           
+            pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS);
+        }
     }
 
     // void n est pas un mot clé qui site une fonction qui nas pas de retour
@@ -53,6 +59,15 @@ public class SQLTools {
         }
 
         pool = new JDBCConnectionPool(JDBC_DRIVER, DB_URL, USER, PASS); // sinon je creer un pool de connexion
+    }
+    private static Hashtable<ResultSet, String> Queries;
+
+    public static String getQuery(ResultSet myResultSet) {
+        return Queries.getOrDefault(myResultSet, "No Query Found");
+    }
+
+    public static String removeQuery(ResultSet myResultSet) {
+        return Queries.remove(myResultSet);
     }
 
     public static ResultSet ExecuteQuery(String Query) {
@@ -97,6 +112,7 @@ public class SQLTools {
                 ResultSet rs = ps.executeQuery(); //sinon c ets un SELECT alors ta3o c est execute
                 pool.checkIn(con); // je me rend compte que je l ai oublié lol lazem nzido hna 
                 //en cas que c est une requete select une fois fini il faut que je rend la connexion prise
+                Queries.put(rs, Query);
                 return rs;
             }
 

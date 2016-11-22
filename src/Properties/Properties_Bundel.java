@@ -99,9 +99,13 @@ public class Properties_Bundel {
         try {
             System.out.println("properties_bundle ("+key+")");
             String Resolved = mainBundle.getString(key);
-            if (Resolved.contains("_ID")) {
-                Resolved=Resolved.replaceAll("_ID", " ");
-            }
+//            while (Resolved.contains("_ID")) {
+//                Resolved=Resolved.replace("_ID", "");
+//            }
+//            while (Resolved.contains("_id")) {
+//                Resolved=Resolved.replace("_id", "");
+//            }
+            System.out.println("the resolved value is : "+Resolved);
             return Resolved;
         }
         catch (Exception mre) {
@@ -116,7 +120,9 @@ public class Properties_Bundel {
         try {
             Properties_Bundel.setPropertiesBundelRessource(Ressource);
             System.out.println("properties_bundle ("+key+")");
-            return mainBundle.getString(key);
+            String resolvedForInit = Properties_Bundel.getString(key);
+            System.out.println("the resolveed for initFrame = "+resolvedForInit);
+            return resolvedForInit;
         }
         catch (Exception mre) {
             mre.printStackTrace();

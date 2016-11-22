@@ -5,6 +5,7 @@
  */
 package MyLibraries.JPanelTools;
 
+import MyLibraries.SQL.SQLTools;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -76,26 +77,47 @@ public class JPanelTools {
             }
         }
     }
-    
-    public static final void linkSearchPanelToTable(JPanel mySearchPanel,JTable mySearchTable, ResultSet myJtableResultSet){
+
+    public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable, final ResultSet myJtableResultSet) {
         Component[] components = mySearchPanel.getComponents();
         JTextField searchingField = null;
-        JComboBox searchFilter;
+        JComboBox searchFilter = null;
         for (Component component : components) {
             if (component instanceof JTextField) {
-                 searchingField = (JTextField) component;
+                searchingField = (JTextField) component;
             }
             if (component instanceof JComboBox) {
-                 searchFilter = (JComboBox) component;
-                
+                searchFilter = (JComboBox) component;
+
             }
         }
+        final JTextField EventField = searchingField;
+        final JComboBox EventFilter = searchFilter;
+
         searchingField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                //myJtableResultSet.           // i m stick here
+                boolean empty = EventField.getText().isEmpty();
+                String query = SQLTools.getQuery(myJtableResultSet);
+                if (!empty) {
+                    String text = EventField.getText();
+                    int Choice =0;
+                    try {
+                        if (!(text.charAt(0) == '0')) {
+
+                            float parseFloat = Float.parseFloat(text);
+                            Choice = 1;
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    query += " WHERE " + EventFilter.getSelectedItem().toString() + " = ";
+                    query +=(Choice==0)?"\""+text+"\"":text;
+                }
+
             }
-            
-});
+
+        });
     }
 }

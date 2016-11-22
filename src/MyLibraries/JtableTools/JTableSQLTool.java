@@ -111,6 +111,7 @@ public class JTableSQLTool {
         Enumeration<TableColumn> columns = table.getColumnModel().getColumns();
         while (columns.hasMoreElements()) {
             TableColumn CurrColumn = columns.nextElement();
+            System.out.println(CurrColumn.getIdentifier().toString().toLowerCase() +"---->"+ ColumnName.toLowerCase());
             if (CurrColumn.getIdentifier().toString().toLowerCase().equals(ColumnName.toLowerCase())) {
 
                 CurrColumn.setWidth(0);
@@ -118,6 +119,21 @@ public class JTableSQLTool {
                 CurrColumn.setMaxWidth(0);
 
                 System.out.println("hide done for :[" + ColumnName + "]");
+            }
+        }
+    }
+    private static void HideIDColumns(JTable table) {
+        Enumeration<TableColumn> columns = table.getColumnModel().getColumns();
+        while (columns.hasMoreElements()) {
+            TableColumn CurrColumn = columns.nextElement();
+           ;
+            if (CurrColumn.getIdentifier().toString().toLowerCase().contains("_id")) {
+
+                CurrColumn.setWidth(0);
+                CurrColumn.setMinWidth(0);
+                CurrColumn.setMaxWidth(0);
+
+               
             }
         }
     }
@@ -134,6 +150,7 @@ public class JTableSQLTool {
     }
 
     public static final void HideColumns(JTable table, String[] Columns) {
+        HideIDColumns(table);
         for (String Column : Columns) {
             HideColumn(table, Column);
         }

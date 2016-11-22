@@ -8,6 +8,7 @@ package FrameDecorator;
 import Properties.Properties_Bundel;
 import java.awt.Color;
 import java.awt.Component;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
@@ -142,6 +143,12 @@ public class MyDecorator {
         parent.setVisible(true);
         parent.setAlwaysOnTop(true);
         parent.show();
+        
+        Field[] declaredFields = j.getClass().getDeclaredFields();
+        System.out.println("all fields :");
+        for (Field declaredField : declaredFields) {
+            System.out.println("Field : "+declaredField.getName()+" ---  "+declaredField.getGenericType().getTypeName());
+        }
         j.dispose();
     }
 
@@ -158,6 +165,7 @@ public class MyDecorator {
                 } else {
                     j.dispose();
                 }
+                
             }
            }
         );

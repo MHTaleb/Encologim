@@ -5,17 +5,27 @@
  */
 package MyLibraries.JPanelTools;
 
+import MyLibraries.SQL.SQLTools;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+
 /**
  *
  * @author polina
  */
-public class SearchPanel extends javax.swing.JPanel {
+public class SimpleSearchPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SearchPanel
      */
-    public SearchPanel() {
+    public SimpleSearchPanel() {
         initComponents();
+    }
+    String[] QueryFilterFields;
+    public void SetupSearchPanel(JTable searcheableTable,ResultSet searchableResultSet,String[] QueryFilterFields){
+        this.QueryFilterFields=QueryFilterFields;
+        String Query = SQLTools.getQuery(searchableResultSet);
+        
     }
     
     
@@ -35,8 +45,6 @@ public class SearchPanel extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Rechercher :");
-
-        J_User_Search_Value.setText("jTextField2");
 
         J_Users_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 

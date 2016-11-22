@@ -10,6 +10,7 @@ import ExceptionLogging.MyLogger;
 import FrameDecorator.MyDecorator;
 import Properties.Properties_Bundel;
 import UI.Main;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public class Authentificate extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         J_User = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        J_Connect = new javax.swing.JButton();
         J_Pass = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,6 +67,11 @@ public class Authentificate extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 255, 255));
         setUndecorated(true);
         setType(java.awt.Window.Type.UTILITY);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(85, 51, 125));
 
@@ -81,17 +87,27 @@ public class Authentificate extends javax.swing.JFrame {
 
         J_User.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         J_User.setToolTipText("Veuillez saisir votre nom d'utilisateur.");
-
-        jButton2.setBackground(new java.awt.Color(51, 51, 255));
-        jButton2.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
-        jButton2.setText("Se Connecter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        J_User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                J_UserActionPerformed(evt);
+            }
+        });
+
+        J_Connect.setBackground(new java.awt.Color(51, 51, 255));
+        J_Connect.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        J_Connect.setText("Se Connecter");
+        J_Connect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                J_ConnectActionPerformed(evt);
             }
         });
 
         J_Pass.setToolTipText("Veuillez introduire cotre mot de passe");
+        J_Pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                J_PassActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -109,7 +125,7 @@ public class Authentificate extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(249, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(J_Connect)
                 .addGap(10, 10, 10))
         );
         jPanel3Layout.setVerticalGroup(
@@ -124,7 +140,7 @@ public class Authentificate extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(J_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(J_Connect)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -242,7 +258,7 @@ public class Authentificate extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void J_ConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_ConnectActionPerformed
         // TODO add your handling code here:
         try {
             
@@ -279,7 +295,7 @@ public class Authentificate extends javax.swing.JFrame {
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_J_ConnectActionPerformed
 
     private void J_ValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_ValidateActionPerformed
         // TODO add your handling code here:
@@ -323,6 +339,20 @@ public class Authentificate extends javax.swing.JFrame {
         
     }//GEN-LAST:event_J_ValidateActionPerformed
 
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyTyped
+
+    private void J_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_UserActionPerformed
+        // TODO add your handling code here:
+          J_Connect.doClick();
+    }//GEN-LAST:event_J_UserActionPerformed
+
+    private void J_PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_J_PassActionPerformed
+        // TODO add your handling code here:
+        J_Connect.doClick();
+    }//GEN-LAST:event_J_PassActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -360,13 +390,13 @@ public class Authentificate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton J_Connect;
     private javax.swing.JPasswordField J_Pass;
     private javax.swing.JPasswordField J_Pass_Confirm;
     private javax.swing.JPasswordField J_Pass_Sign;
     private javax.swing.JTextField J_User;
     private javax.swing.JTextField J_User_Sign;
     private javax.swing.JButton J_Validate;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
