@@ -1,10 +1,11 @@
 # Encologim
 
-Hi I m developping this application for an encologie medical service to help to take care of cancer ill people to manage their treatement
-
-the methode I m using is my way of thinking and it helps me lot!
-
-please check my working and tell me what you think about it 
+Hi 
+  I m developping this tools set in order to create an easy updatable software developement method,
+ I aim to stay in the middle of dynamic object generation and free user hand design, the road is long 
+ and the objectives are many, that's my way of thinking may be you are agree or desagree so I m open 
+ to any suggestion and remark, until now I m alone on this project that I started for my personal reasons
+ where the main is that is one of my dreams
 
 any contribution is welcome
 
@@ -26,3 +27,5 @@ feel free to contact me TalCorpdz@gmail.com
   second : launch the project from encologie.java  that will create the database and minimum data
 
 # User and Password are    "talcorp"  "123456789"
+
+

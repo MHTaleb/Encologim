@@ -39,12 +39,12 @@ public class Users extends javax.swing.JFrame {
 
      private final String[] HideColumns = new String[]{
         
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_ID,Properties_Bundel.HeadsCaption),
+      //  Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_ID,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
-      //  Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
+       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
+       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
+       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
     };
 
     private final Object[] getBindingFields() {
@@ -73,7 +73,7 @@ public class Users extends javax.swing.JFrame {
         SimpleSearchPanel SSP = new SimpleSearchPanel();
         SSP.SetupSearchPanel(J_Table_Users,HideColumns, J_Table_UsersRS, SearchFilter,VisualFilter);
         JPanelTools.ShowPanel(JSearchPanel, SSP);
-        
+       
         pack();
     }
 
@@ -147,6 +147,7 @@ public class Users extends javax.swing.JFrame {
         J_User_Name.setText("Utilisateur :");
 
         J_users_UserName.setText("users_USERNAME");
+        J_users_UserName.setName("users_USERNAME"); // NOI18N
 
         JL_EditMode_Title.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         JL_EditMode_Title.setText("  Mode ");
@@ -155,6 +156,7 @@ public class Users extends javax.swing.JFrame {
         J_User_Name2.setText("Mot De Passe :");
 
         J_Users_Pass.setText("users_PASSWORD");
+        J_Users_Pass.setName("users_PASSWORD"); // NOI18N
 
         J_User_Name3.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         J_User_Name3.setText("Confirmer Mot DE Passe :");
@@ -172,7 +174,7 @@ public class Users extends javax.swing.JFrame {
 
         J_Users_Profile.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         J_Users_Profile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super Administrateur", "Médecin" }));
-        J_Users_Profile.setName("profiles_ID"); // NOI18N
+        J_Users_Profile.setName("users_PROFILE"); // NOI18N
 
         J_User_Name4.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         J_User_Name4.setText("Profile :");
@@ -258,7 +260,7 @@ public class Users extends javax.swing.JFrame {
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(J_User_Name5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(J_Users_State))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Commit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JL_Commit1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -296,6 +298,10 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users.setSelectionBackground(new java.awt.Color(204, 204, 255));
         J_Table_Users.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(J_Table_Users);
+        if (J_Table_Users.getColumnModel().getColumnCount() > 0) {
+            J_Table_Users.getColumnModel().getColumn(0).setHeaderValue("Utilisateur");
+            J_Table_Users.getColumnModel().getColumn(1).setHeaderValue("Etat");
+        }
 
         JSearchPanel.setName("SimpleSearchPanel"); // NOI18N
 
@@ -371,7 +377,7 @@ public class Users extends javax.swing.JFrame {
                 .addComponent(JL_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(JL_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                 .addComponent(JL_Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +387,7 @@ public class Users extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(JSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JL_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,13 +430,13 @@ public class Users extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

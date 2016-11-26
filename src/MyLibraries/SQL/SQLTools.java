@@ -7,12 +7,12 @@ package MyLibraries.SQL;
 
 import DataBaseIstall.DBInstall;
 import MyLibraries.JDBCConnectionPool;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
-import org.apache.batik.dom.util.HashTable;
 
 /**
  *
@@ -123,6 +123,10 @@ public class SQLTools {
 
         }
         return null;
+    }
+    
+    public static void doInsertQuery(Component[] mySelectedQueryComponents,String mySqlTableName){
+        
     }
 
 }

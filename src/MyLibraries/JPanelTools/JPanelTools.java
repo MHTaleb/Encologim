@@ -7,16 +7,24 @@ package MyLibraries.JPanelTools;
 
 import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.HierarchyBoundsAdapter;
+import java.awt.event.HierarchyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -24,6 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -39,18 +48,23 @@ public class JPanelTools {
         target.setSize(object.getSize());
 
         GridBagLayout gridBagLayout = new GridBagLayout();
-
+      
+        
+        
         target.setLayout(gridBagLayout);
 
-        GridBagConstraints gbc = new GridBagConstraints(target.getX(),
-                target.getY(),
-                target.getWidth(),
-                target.getHeight(),
-                0, 0,
-                GridBagConstraints.ABOVE_BASELINE,
-                0,
-                new Insets(5, 5, 5, 5),
-                0, 0);
+//        target.getX(),
+//                target.getY(),
+//                target.getWidth(),
+//                target.getHeight(),
+//                0, 0,
+//                GridBagConstraints.ABOVE_BASELINE,
+//                0,
+//                new Insets(5, 5, 5, 5),
+//                0, 0
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill=GridBagConstraints.HORIZONTAL;
 
         target.add(object, gbc);
         target.invalidate();
@@ -62,7 +76,6 @@ public class JPanelTools {
         object.repaint();
         object.show();
 
-       
         Container Frame = target.getParent();
         Container Current = target.getParent();
         while ((Current != null)) {
@@ -81,19 +94,54 @@ public class JPanelTools {
                 MyFrame.setExtendedState(extendedState);
             }
         }
+
+    }
+    private static ArrayList<Component> myAllComponents ;
+
+    private static final void getAllComponents(final JPanel myPanel) {
+
+        Component[] components = myPanel.getComponents();
+        for (Component component : components) {
+            if (!(component instanceof JPanel)) {
+                myAllComponents.add(component);
+            }else{
+                getAllComponents((JPanel)component);
+            }
+        }
+
+    }
+    private static final Component[] SynchronizedGetAllComponents(final JPanel parentPanel){
+        myAllComponents = new ArrayList<Component>();
+        getAllComponents(parentPanel);
+        
+        Component[] allComponents = new Component[myAllComponents.size()];
+        Iterator<Component> iterator = myAllComponents.iterator();
+        int i =0;
+        while (iterator.hasNext()) {
+            Component next = iterator.next();
+            allComponents[i] = next ;
+            i++;
+        }
+        return allComponents;
     }
 
-    public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable , final String[] HideColumns, final ResultSet myJtableResultSet ,final String[] whereSelectionValues) {
-        Component[] components = mySearchPanel.getComponents();
+    public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable, final String[] HideColumns, final ResultSet myJtableResultSet, final String[] whereSelectionValues) {
+        Component[] components =  SynchronizedGetAllComponents(mySearchPanel);
         JTextField searchingField = null;
         JComboBox searchFilter = null;
         for (Component component : components) {
             if (component instanceof JTextField) {
                 searchingField = (JTextField) component;
-            }
-            if (component instanceof JComboBox) {
-                searchFilter = (JComboBox) component;
+            } else {
+                if (component instanceof JComboBox) {
+                    searchFilter = (JComboBox) component;
 
+                } else {
+                    if (component instanceof JPanel) {
+                        JPanel jPanel = (JPanel) component;
+
+                    }
+                }
             }
         }
         final JTextField EventField = searchingField;
@@ -106,7 +154,7 @@ public class JPanelTools {
                 String query = SQLTools.getQuery(myJtableResultSet);
                 if (!empty) {
                     String text = EventField.getText();
-                    int Choice =0;
+                    int Choice = 0;
                     try {
                         if (!(text.charAt(0) == '0')) {
 
@@ -115,19 +163,19 @@ public class JPanelTools {
                         }
 
                     } catch (Exception e) {
-                       // e.printStackTrace();
+                        // e.printStackTrace();
                     }
                     query = query.replace(";", "");
                     query += " WHERE " + whereSelectionValues[EventFilter.getSelectedIndex()];
-                    query +=(Choice==0)?" LIKE \"%"+text+"%\";":"="+text+";";
-                    System.out.println("Query is :"+query);
+                    query += (Choice == 0) ? " LIKE \"%" + text + "%\";" : "=" + text + ";";
+                    System.out.println("Query is :" + query);
                 }
-                    try {
-                        JTableSQLTool.FillTableDataFromQuery(query, mySearchTable);
-                        JTableSQLTool.HideColumns(mySearchTable, HideColumns);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(JPanelTools.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {
+                    JTableSQLTool.FillTableDataFromQuery(query, mySearchTable);
+                    JTableSQLTool.HideColumns(mySearchTable, HideColumns);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JPanelTools.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
 
