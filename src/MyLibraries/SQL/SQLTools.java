@@ -12,7 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Hashtable;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -126,6 +130,47 @@ public class SQLTools {
     }
     
     public static void doInsertQuery(Component[] mySelectedQueryComponents,String mySqlTableName){
+        
+        String query = "INSERT INTO "+mySqlTableName+"";
+        String fields = "(";
+        String fieldsClosure=") ";
+        String values = " VALUES(";
+        String valuesClosure = ");";
+        
+        for (Component myComponent : mySelectedQueryComponents) {
+             String name = myComponent.getName();
+             String sqlFieldName=name.replace(mySqlTableName+"_","");
+             fields+=sqlFieldName+",";
+            if (myComponent instanceof JTextField) {
+                JTextField jTextField = (JTextField) myComponent;
+                values+="\""+jTextField.getText()+"\",";                
+            }
+            else
+            if (myComponent instanceof JPasswordField) {
+                JPasswordField jPasswordField = (JPasswordField) myComponent;
+                values+="MD5(\""+jPasswordField.getText()+"\"),";                
+            }
+            else
+            if (myComponent instanceof JComboBox) {
+                JComboBox jComboBox = (JComboBox) myComponent;
+                values+=""+jComboBox.getSelectedItem()+",";                
+            }
+            else
+            if (myComponent instanceof JCheckBox) {
+                JCheckBox jCheckBox = (JCheckBox) myComponent;
+                int val = (jCheckBox.isSelected())?1:0;
+                values+=""+val+",";                
+            }
+            
+            
+        }
+            // end of processing
+            values+=valuesClosure;
+            values=values.replace(",)", ")");
+            fields+=fieldsClosure;
+            fields=fields.replace(",)", ")");
+            
+            System.out.println(query+fields+values);
         
     }
 

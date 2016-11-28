@@ -6,11 +6,13 @@
 package Users;
 
 import ExceptionLogging.MyLogger;
+import MyLibraries.JComboBoxTools.JComboBoxTools;
 import MyLibraries.JPanelTools.JPanelTools;
 import MyLibraries.JPanelTools.SimpleSearchPanel;
 import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
 import Properties.Properties_Bundel;
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -73,7 +75,7 @@ public class Users extends javax.swing.JFrame {
         SimpleSearchPanel SSP = new SimpleSearchPanel();
         SSP.SetupSearchPanel(J_Table_Users,HideColumns, J_Table_UsersRS, SearchFilter,VisualFilter);
         JPanelTools.ShowPanel(JSearchPanel, SSP);
-       
+        JComboBoxTools.setupID_TITLE_ComboBox(J_Users_Profile,"profiles");
         pack();
     }
 
@@ -483,6 +485,7 @@ public class Users extends javax.swing.JFrame {
         switch (mode) {
             case Add_mode: {
                 System.out.println("do insert");
+                SQLTools.doInsertQuery(new Component[]{J_users_UserName,J_Users_Pass,J_Users_Profile,J_Users_State}, "users");
                 HideEditPanel();
             }
             break;
@@ -568,7 +571,7 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> J_Users_Filter;
     private javax.swing.JPasswordField J_Users_Pass;
     private javax.swing.JPasswordField J_Users_PassConfirm;
-    private javax.swing.JComboBox<String> J_Users_Profile;
+    private static javax.swing.JComboBox<String> J_Users_Profile;
     private javax.swing.JCheckBox J_Users_State;
     private javax.swing.JTextField J_users_UserName;
     private javax.swing.JLabel jLabel5;
