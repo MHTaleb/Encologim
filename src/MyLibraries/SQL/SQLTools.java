@@ -12,11 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Hashtable;
+import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import org.jdesktop.swingx.combobox.MapComboBoxModel;
 
 /**
  *
@@ -153,7 +155,8 @@ public class SQLTools {
             else
             if (myComponent instanceof JComboBox) {
                 JComboBox jComboBox = (JComboBox) myComponent;
-                values+=""+jComboBox.getSelectedItem()+",";                
+                 MapComboBoxModel model = (MapComboBoxModel) jComboBox.getModel();
+                 values+=""+model.getValue(model.getSelectedItem())+",";                
             }
             else
             if (myComponent instanceof JCheckBox) {
