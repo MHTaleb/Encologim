@@ -45,7 +45,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" pref="1142" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -109,48 +109,47 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="JL_EditMode_Title" max="32767" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator1" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                              <Component id="J_User_Name5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="J_users_UserName" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_Pass" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_PassConfirm" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_Profile" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="J_Users_State" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="JL_EditMode_Title" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jSeparator1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="JL_Commit1" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="JL_Commit" min="-2" pref="94" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="J_User_Name4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="J_User_Name3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="J_User_Name2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="J_User_Name" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                              <Component id="J_Matricule" min="-2" pref="233" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="J_Prenom" min="-2" pref="233" max="-2" attributes="0"/>
+                                                  <Component id="J_Nom" min="-2" pref="233" max="-2" attributes="0"/>
+                                                  <Component id="J_Telephone" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="JL_Commit1" min="-2" pref="94" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="JL_Commit" min="-2" pref="94" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="J_User_Name4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="J_User_Name3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="J_User_Name2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="J_User_Name" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="248" pref="248" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -160,31 +159,26 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="JL_EditMode_Title" min="-2" pref="46" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="64" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="135" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="J_User_Name" alignment="2" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="J_users_UserName" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="J_Matricule" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="J_User_Name2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="J_Users_Pass" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="J_Nom" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="J_User_Name3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="J_Users_PassConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="J_Prenom" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="J_Users_Profile" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="J_User_Name4" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="J_User_Name5" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="J_Users_State" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="J_Telephone" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -202,12 +196,13 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Consolas" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Utilisateur :"/>
+                        <Property name="text" type="java.lang.String" value="Matricule :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="J_users_UserName">
+                    <Component class="javax.swing.JTextField" name="J_Matricule">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="users_USERNAME"/>
+                        <Property name="text" type="java.lang.String" value="malade_MATRICULE"/>
+                        <Property name="name" type="java.lang.String" value="malade_MATRICULE" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="JL_EditMode_Title">
@@ -225,12 +220,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Consolas" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Mot De Passe :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JPasswordField" name="J_Users_Pass">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="users_PASSWORD"/>
+                        <Property name="text" type="java.lang.String" value="Nom :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="J_User_Name3">
@@ -238,12 +228,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Consolas" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Confirmer Mot DE Passe :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JPasswordField" name="J_Users_PassConfirm">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="users_PASSWORD"/>
+                        <Property name="text" type="java.lang.String" value="Pr&#xe9;nom :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="JL_Commit">
@@ -269,42 +254,12 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JL_CommitMouseClicked"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="J_Users_Profile">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Consolas" size="12" style="0"/>
-                        </Property>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="2">
-                            <StringItem index="0" value="Super Administrateur"/>
-                            <StringItem index="1" value="M&#xe9;decin"/>
-                          </StringArray>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="profiles_ID" noResource="true"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="J_User_Name4">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Consolas" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Profile :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="J_User_Name5">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Consolas" size="12" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Active :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="J_Users_State">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" value="users_STATE" noResource="true"/>
+                        <Property name="text" type="java.lang.String" value="T&#xe9;l&#xe9;phone :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="JL_Commit1">
@@ -330,6 +285,24 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JL_Commit1MouseClicked"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JTextField" name="J_Nom">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="malade_NOM"/>
+                        <Property name="name" type="java.lang.String" value="malade_NOM" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="J_Prenom">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="malade_PRENOM"/>
+                        <Property name="name" type="java.lang.String" value="malade_PRENOM" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="J_Telephone">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="malade_TELEPHONE"/>
+                        <Property name="name" type="java.lang.String" value="malade_TELEPHONE" noResource="true"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel3">
@@ -342,14 +315,14 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel4" max="32767" attributes="0"/>
+                          <Component id="J_Search_Panel" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="JL_Add" min="-2" pref="94" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="JL_Edit" min="-2" pref="94" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="JL_Delete" min="-2" pref="94" max="-2" attributes="0"/>
-                              <EmptySpace pref="241" max="32767" attributes="0"/>
+                              <EmptySpace pref="309" max="32767" attributes="0"/>
                               <Component id="JL_Exit" min="-2" pref="94" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -361,7 +334,7 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="J_Search_Panel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="461" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JL_Add" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
@@ -452,7 +425,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel4">
+                    <Container class="javax.swing.JPanel" name="J_Search_Panel">
                       <Properties>
                         <Property name="name" type="java.lang.String" value="SimpleSearchPanel" noResource="true"/>
                       </Properties>
@@ -460,61 +433,15 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" pref="76" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="J_User_Search_Value" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="J_Users_Filter" min="-2" pref="124" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="0" pref="741" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="J_User_Search_Value" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="J_Users_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="20" max="32767" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="0" pref="57" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel5">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="12" style="1"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Rechercher :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="J_User_Search_Value">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="jTextField2"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="J_Users_Filter">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="4">
-                                <StringItem index="0" value="Item 1"/>
-                                <StringItem index="1" value="Item 2"/>
-                                <StringItem index="2" value="Item 3"/>
-                                <StringItem index="3" value="Item 4"/>
-                              </StringArray>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                      </SubComponents>
                     </Container>
                     <Component class="javax.swing.JLabel" name="JL_Delete">
                       <Properties>

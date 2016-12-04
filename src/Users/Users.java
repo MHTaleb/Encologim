@@ -5,10 +5,11 @@
  */
 package Users;
 
+import DragAndDropImageUpload.SimpleImageUpload;
 import ExceptionLogging.MyLogger;
 import MyLibraries.JComboBoxTools.JComboBoxTools;
 import MyLibraries.JPanelTools.JPanelTools;
-import MyLibraries.JPanelTools.SimpleSearchPanel;
+import SearchPanels.SimpleSearchPanel;
 import MyLibraries.JtableTools.JTableSQLTool;
 import MyLibraries.SQL.SQLTools;
 import Properties.Properties_Bundel;
@@ -27,37 +28,45 @@ public class Users extends javax.swing.JFrame {
     /**
      * Creates new form Users
      */
-    private final int Add_mode = 0;   // les variable des mode ajout modification suppression pour une fonctionalité futur
-    // je veux qu il genere automatiquement la requete d insertion ajout et meme supression
-    private final int Edit_mode = 1;
-    private int mode;
-
+    
+    // first step the form principal Query
+    // ici j ai la requete principal de cette fenetre
+    // comme je te l ai dit ici c est la  requete qui va peuplé le tableau
+    private String query = "SELECT *   \n"
+            + "FROM users u\n"
+            + "LEFT JOIN profiles p ON u.PROFILE=p.ID\n"
+            + "LEFT JOIN usersstate us ON us.ID=u.STATE;";
+    
+    // ici je cree un tableau qui va indiqué a mon moteur quel champ je veux garder caché 
+    private final String[] HideColumns = new String[]{ 
+        // properties bundle est une classe qui sert a lire depuis un fichier de configuration
+        // ici je demande la valeur du champ Password de la table Users
+        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
+        
+        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
+      
+    };
+     
+   
     public Users() throws SQLException {
         initComponents();
     }
-    private ResultSet J_Table_UsersRS;
-     private final String[] SearchFilter = new String[]{"u.USERNAME","p.TITRE","us.TITRE"};
-     private final String[] VisualFilter = new String[]{"Nom d'utilisateur","Profile","Etat"};
+   
 
-     private final String[] HideColumns = new String[]{
-        
-      //  Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_ID,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
-       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
-       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
-       // Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
-    };
+    
+     private final String[] SearchFilter = new String[]{"u.USERNAME","p.TITRE","us.TITRE"};
+     private final String[] VisualFilter = new String[]{
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_USERNAME,Properties_Bundel.HeadsCaption),
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_TITRE,Properties_Bundel.HeadsCaption),
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_TITRE,Properties_Bundel.HeadsCaption)};
+     
+     
 
     private final Object[] getBindingFields() {
         Object[] BindingFields = new Object[]{J_users_UserName, J_Users_PassConfirm,J_Users_Pass, J_Users_Profile, J_Users_State};
         return BindingFields;
     }
     
-    private String query = "SELECT *\n"//"SELECT u.ID,u.USERNAME,u.PASSWORD,us.ID, us.TITRE AS STATE,p.TITRE AS PROFILE\n"
-            + "FROM users u\n"
-            + "LEFT JOIN profiles p ON u.PROFILE=p.ID\n"
-            + "LEFT JOIN usersstate us ON us.ID=u.STATE;";
 
     public final void InitFrame() throws SQLException {
 
@@ -71,11 +80,21 @@ public class Users extends javax.swing.JFrame {
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
-        
+        // adding a search panel
         SimpleSearchPanel SSP = new SimpleSearchPanel();
         SSP.SetupSearchPanel(J_Table_Users,HideColumns, J_Table_UsersRS, SearchFilter,VisualFilter);
         JPanelTools.ShowPanel(JSearchPanel, SSP);
+        // end of adding search panel
+        
+        // adding back end Combobox data from table
         JComboBoxTools.setupID_TITLE_ComboBox(J_Users_Profile,"profiles");
+        // end of adding
+        
+        // Adding multiple image load panel
+        SimpleImageUpload siu = new SimpleImageUpload();
+        siu.setup();
+        JPanelTools.ShowPanel(J_Image_Upload, siu);
+        // end
         pack();
     }
 
@@ -127,6 +146,7 @@ public class Users extends javax.swing.JFrame {
         J_User_Name5 = new javax.swing.JLabel();
         J_Users_State = new javax.swing.JCheckBox();
         JL_Commit1 = new javax.swing.JLabel();
+        J_Image_Upload = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         J_Table_Users = new javax.swing.JTable();
@@ -195,6 +215,17 @@ public class Users extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout J_Image_UploadLayout = new javax.swing.GroupLayout(J_Image_Upload);
+        J_Image_Upload.setLayout(J_Image_UploadLayout);
+        J_Image_UploadLayout.setHorizontalGroup(
+            J_Image_UploadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        J_Image_UploadLayout.setVerticalGroup(
+            J_Image_UploadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 153, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout J_Panel_EditLayout = new javax.swing.GroupLayout(J_Panel_Edit);
         J_Panel_Edit.setLayout(J_Panel_EditLayout);
         J_Panel_EditLayout.setHorizontalGroup(
@@ -203,23 +234,6 @@ public class Users extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(JL_EditMode_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(J_User_Name5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(J_users_UserName)
-                    .addComponent(J_Users_Pass)
-                    .addComponent(J_Users_PassConfirm)
-                    .addComponent(J_Users_Profile, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_Users_State)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JL_Commit1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,6 +248,27 @@ public class Users extends javax.swing.JFrame {
                     .addComponent(J_User_Name2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(J_User_Name, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(248, 248, 248))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
+                .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(J_Image_Upload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(J_User_Name5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(jSeparator1))
+                            .addComponent(J_users_UserName)
+                            .addComponent(J_Users_Pass)
+                            .addComponent(J_Users_PassConfirm)
+                            .addComponent(J_Users_Profile, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                                .addComponent(J_Users_State)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         J_Panel_EditLayout.setVerticalGroup(
             J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +276,9 @@ public class Users extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(JL_EditMode_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(J_Image_Upload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(J_User_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +299,7 @@ public class Users extends javax.swing.JFrame {
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(J_User_Name5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(J_Users_State))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Commit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JL_Commit1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,21 +315,12 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         J_Table_Users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Talcorp", "Active"},
-                {"Test", "Inactive"}
+
             },
             new String [] {
-                "Utilisateur", "Etat"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         J_Table_Users.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         J_Table_Users.setGridColor(new java.awt.Color(255, 255, 255));
         J_Table_Users.setRowHeight(24);
@@ -300,10 +328,6 @@ public class Users extends javax.swing.JFrame {
         J_Table_Users.setSelectionBackground(new java.awt.Color(204, 204, 255));
         J_Table_Users.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(J_Table_Users);
-        if (J_Table_Users.getColumnModel().getColumnCount() > 0) {
-            J_Table_Users.getColumnModel().getColumn(0).setHeaderValue("Utilisateur");
-            J_Table_Users.getColumnModel().getColumn(1).setHeaderValue("Etat");
-        }
 
         JSearchPanel.setName("SimpleSearchPanel"); // NOI18N
 
@@ -389,7 +413,7 @@ public class Users extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(JSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 437, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JL_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,7 +462,7 @@ public class Users extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -551,6 +575,17 @@ public class Users extends javax.swing.JFrame {
         });
     }
 
+// autant de tableau autant de RS    
+    private ResultSet J_Table_UsersRS;
+    
+
+//interdit de changer
+    private final int Add_mode = 0;   // les variable des mode ajout modification suppression pour une fonctionalité futur
+    // je veux qu il genere automatiquement la requete d insertion ajout et meme supression
+    private final int Edit_mode = 1;
+    private int mode;
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JL_Add;
     private javax.swing.JLabel JL_Commit;
@@ -560,6 +595,7 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JLabel JL_EditMode_Title;
     private javax.swing.JLabel JL_Exit;
     private javax.swing.JPanel JSearchPanel;
+    private javax.swing.JPanel J_Image_Upload;
     private javax.swing.JPanel J_Panel_Edit;
     private javax.swing.JTable J_Table_Users;
     private javax.swing.JLabel J_User_Name;

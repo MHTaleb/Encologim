@@ -53,7 +53,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jTabbedPane1" pref="591" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -114,27 +114,6 @@
                               <Component id="JL_EditMode_Title" max="32767" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator1" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                              <Component id="J_User_Name5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="J_users_UserName" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_Pass" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_PassConfirm" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="J_Users_Profile" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="J_Users_State" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="JL_Commit1" min="-2" pref="94" max="-2" attributes="0"/>
@@ -152,6 +131,34 @@
                               </Group>
                               <EmptySpace min="248" pref="248" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="J_Image_Upload" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                                      <Component id="J_User_Name5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                              <Component id="jSeparator1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="J_users_UserName" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="J_Users_Pass" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="J_Users_PassConfirm" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="J_Users_Profile" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="J_Users_State" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -160,7 +167,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="JL_EditMode_Title" min="-2" pref="46" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="J_Image_Upload" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="J_User_Name" alignment="2" min="-2" pref="20" max="-2" attributes="0"/>
@@ -186,7 +195,7 @@
                                   <Component id="J_User_Name5" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="J_Users_State" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="173" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JL_Commit" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                                   <Component id="JL_Commit1" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
@@ -333,6 +342,21 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JL_Commit1MouseClicked"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="J_Image_Upload">
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="153" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel3">
@@ -365,7 +389,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="JSearchPanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="437" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JL_Add" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                                   <Component id="JL_Edit" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
@@ -411,31 +435,11 @@
                               <Font name="Consolas" size="12" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="2">
-                                <Column editable="false" title="Utilisateur" type="java.lang.Object">
-                                  <Data value="Talcorp"/>
-                                  <Data value="Test"/>
-                                </Column>
-                                <Column editable="false" title="Etat" type="java.lang.Object">
-                                  <Data value="Active"/>
-                                  <Data value="Inactive"/>
-                                </Column>
-                              </Table>
+                              <Table columnCount="0" rowCount="0"/>
                             </Property>
                             <Property name="autoResizeMode" type="int" value="4"/>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="Utilisateur"/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="Etat"/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                              </TableColumnModel>
+                              <TableColumnModel selectionModel="0"/>
                             </Property>
                             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>

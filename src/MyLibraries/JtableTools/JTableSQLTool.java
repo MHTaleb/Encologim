@@ -126,8 +126,9 @@ public class JTableSQLTool {
         Enumeration<TableColumn> columns = table.getColumnModel().getColumns();
         while (columns.hasMoreElements()) {
             TableColumn CurrColumn = columns.nextElement();
-           ;
-            if (CurrColumn.getIdentifier().toString().toLowerCase().contains("_id")) {
+           
+            if ((CurrColumn.getIdentifier().toString().toLowerCase().contains("_id"))||
+                    ((CurrColumn.getIdentifier().toString().toLowerCase().contains("not found")))) {
 
                 CurrColumn.setWidth(0);
                 CurrColumn.setMinWidth(0);

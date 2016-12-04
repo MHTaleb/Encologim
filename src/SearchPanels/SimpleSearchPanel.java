@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MyLibraries.JPanelTools;
+package SearchPanels;
 
 import static MyLibraries.JPanelTools.JPanelTools.linkSearchPanelToTable;
 import MyLibraries.JtableTools.JTableSQLTool;

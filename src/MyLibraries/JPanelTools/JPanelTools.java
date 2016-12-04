@@ -125,6 +125,9 @@ public class JPanelTools {
         return allComponents;
     }
 
+    
+    
+    // jpaneltools est la class moteur : la fonction qui gere la recherche est dessou
     public static final void linkSearchPanelToTable(final JPanel mySearchPanel, final JTable mySearchTable, final String[] HideColumns, final ResultSet myJtableResultSet, final String[] whereSelectionValues) {
         Component[] components =  SynchronizedGetAllComponents(mySearchPanel);
         JTextField searchingField = null;

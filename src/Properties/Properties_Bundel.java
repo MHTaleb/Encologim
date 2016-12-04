@@ -42,6 +42,17 @@ public class Properties_Bundel {
     public final static String HeadsCaption_usersstate_STATE = "usersstate_STATE";
     public final static String HeadsCaption_usersstate_TITRE = "usersstate_TITRE";
     
+    //Table Malade
+                               // variable du dev        // structure du dba
+    public final static String HeadsCaption_malade_ID = "malade_ID";
+    public final static String HeadsCaption_malade_MATRICULE = "malade_MATRICULE";
+    public final static String HeadsCaption_malade_DT_INSCRIPTION = "malade_DT_INSCRIPTION";
+    public final static String HeadsCaption_malade_TELEPHONE = "malade_TELEPHONE";
+    public final static String HeadsCaption_malade_NOM = "malade_NOM";
+    public final static String HeadsCaption_malade_PRENOM = "malade_PRENOM";
+    public final static String HeadsCaption_malade_DT_NAISSANCE = "malade_DT_NAISSANCE";
+    
+    
     public final static String Strings = "Properties.Strings";
     public final static String Strings_Fill_Username = "Fill username";
     public final static String Strings_Confirm_Fail = "Confirm_Fail";

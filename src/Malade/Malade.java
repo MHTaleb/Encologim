@@ -5,11 +5,13 @@
  */
 package Malade;
 
-import Users.*;
 import ExceptionLogging.MyLogger;
+import MyLibraries.JPanelTools.JPanelTools;
+import SearchPanels.SimpleSearchPanel;
 import MyLibraries.JtableTools.JTableSQLTool;
-import MyLibraries.SQL.SQLTools;
+import static MyLibraries.SQL.SQLTools.doInsertQuery;
 import Properties.Properties_Bundel;
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,31 +30,41 @@ public class Malade extends javax.swing.JFrame {
     // je veux qu il genere automatiquement la requete d insertion ajout et meme supression
     private final int Edit_mode = 1;
     private int mode;
+                                                       // 1 er champ 2          3    il ne  faut pas oublier l alias lol
+    private final String[] SearchFilter = new String[]{"m.MATRICULE","m.DT_INSCRIPTION","m.TELEPHONE","m.NOM"};
+     private final String[] VisualFilter = new String[]{
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_malade_MATRICULE,Properties_Bundel.HeadsCaption),
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_malade_DT_INSCRIPTION,Properties_Bundel.HeadsCaption),
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_malade_TELEPHONE,Properties_Bundel.HeadsCaption),
+         Properties_Bundel.getString(Properties_Bundel.HeadsCaption_malade_NOM,Properties_Bundel.HeadsCaption)};
+     
+     
 
     public Malade() throws SQLException {
         initComponents();
     }
     private ResultSet J_Table_UsersRS;
 
+    // ici je specifie ce que je cache du tableau, c est bon il est caché on essaye
      private final String[] HideColumns = new String[]{
         
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_ID,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
-        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
+        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_malade_MATRICULE,Properties_Bundel.HeadsCaption),
+//        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PASSWORD,Properties_Bundel.HeadsCaption),
+//        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_PROFILE,Properties_Bundel.HeadsCaption),
+//        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_users_STATE,Properties_Bundel.HeadsCaption),
+//        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_profiles_ID,Properties_Bundel.HeadsCaption),
+//        Properties_Bundel.getString(Properties_Bundel.HeadsCaption_usersstate_ID,Properties_Bundel.HeadsCaption),
     };
 
+     // ici si je clique sur le tableau les valeur vont etre afficher dans les champ du formulaire respective et voila c ets fini
     private final Object[] getBindingFields() {
-        Object[] BindingFields = new Object[]{J_users_UserName, J_Users_PassConfirm,J_Users_Pass, J_Users_Profile, J_Users_State};
+        Object[] BindingFields = new Object[]{J_Matricule, J_Nom,J_Prenom, J_Telephone};
         return BindingFields;
     }
     
     private String query = "SELECT *\n"//"SELECT u.ID,u.USERNAME,u.PASSWORD,us.ID, us.TITRE AS STATE,p.TITRE AS PROFILE\n"
-            + "FROM users u\n"
-            + "LEFT JOIN profiles p ON u.PROFILE=p.ID\n"
-            + "LEFT JOIN usersstate us ON us.ID=u.STATE;";
+            + "FROM malade m\n";
+           
 
     public final void InitFrame() throws SQLException {
 
@@ -65,6 +77,12 @@ public class Malade extends javax.swing.JFrame {
         } catch (Exception e) {
             MyLogger.Log_to_local(e);
         }
+         SimpleSearchPanel SSP = new SimpleSearchPanel();// ici je creer l instance simple
+        SSP.SetupSearchPanel(J_Table_Users,HideColumns, J_Table_UsersRS, SearchFilter,VisualFilter); // ici je l installe
+        // elle a besoin de deux vecteur de string pour le filtre
+        JPanelTools.ShowPanel(J_Search_Panel, SSP);
+       
+        
         pack();
     }
 
@@ -82,11 +100,11 @@ public class Malade extends javax.swing.JFrame {
         JL_Edit.setEnabled(true);
         JL_Delete.setEnabled(true);
         
-        J_Users_Pass.setText("");
-        J_Users_PassConfirm.setText("");
-        J_users_UserName.setText("");
-        J_Users_Profile.setSelectedIndex(0);
-        J_Users_State.setSelected(false);
+        J_Nom.setText("");
+        J_Prenom.setText("");
+        J_Matricule.setText("");
+        J_Telephone.setText("");
+        
     }
 
     /**
@@ -103,26 +121,21 @@ public class Malade extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         J_Panel_Edit = new javax.swing.JPanel();
         J_User_Name = new javax.swing.JLabel();
-        J_users_UserName = new javax.swing.JTextField();
+        J_Matricule = new javax.swing.JTextField();
         JL_EditMode_Title = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         J_User_Name2 = new javax.swing.JLabel();
-        J_Users_Pass = new javax.swing.JPasswordField();
         J_User_Name3 = new javax.swing.JLabel();
-        J_Users_PassConfirm = new javax.swing.JPasswordField();
         JL_Commit = new javax.swing.JLabel();
-        J_Users_Profile = new javax.swing.JComboBox<>();
         J_User_Name4 = new javax.swing.JLabel();
-        J_User_Name5 = new javax.swing.JLabel();
-        J_Users_State = new javax.swing.JCheckBox();
         JL_Commit1 = new javax.swing.JLabel();
+        J_Nom = new javax.swing.JTextField();
+        J_Prenom = new javax.swing.JTextField();
+        J_Telephone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         J_Table_Users = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        J_User_Search_Value = new javax.swing.JTextField();
-        J_Users_Filter = new javax.swing.JComboBox<>();
+        J_Search_Panel = new javax.swing.JPanel();
         JL_Delete = new javax.swing.JLabel();
         JL_Edit = new javax.swing.JLabel();
         JL_Add = new javax.swing.JLabel();
@@ -135,22 +148,19 @@ public class Malade extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         J_User_Name.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        J_User_Name.setText("Utilisateur :");
+        J_User_Name.setText("Matricule :");
 
-        J_users_UserName.setText("users_USERNAME");
+        J_Matricule.setText("malade_MATRICULE");
+        J_Matricule.setName("malade_MATRICULE"); // NOI18N
 
         JL_EditMode_Title.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         JL_EditMode_Title.setText("  Mode ");
 
         J_User_Name2.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        J_User_Name2.setText("Mot De Passe :");
-
-        J_Users_Pass.setText("users_PASSWORD");
+        J_User_Name2.setText("Nom :");
 
         J_User_Name3.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        J_User_Name3.setText("Confirmer Mot DE Passe :");
-
-        J_Users_PassConfirm.setText("users_PASSWORD");
+        J_User_Name3.setText("Prénom :");
 
         JL_Commit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icons/check.png"))); // NOI18N
         JL_Commit.setText("Valider");
@@ -161,17 +171,8 @@ public class Malade extends javax.swing.JFrame {
             }
         });
 
-        J_Users_Profile.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        J_Users_Profile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super Administrateur", "Médecin" }));
-        J_Users_Profile.setName("profiles_ID"); // NOI18N
-
         J_User_Name4.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        J_User_Name4.setText("Profile :");
-
-        J_User_Name5.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        J_User_Name5.setText("Active :");
-
-        J_Users_State.setName("users_STATE"); // NOI18N
+        J_User_Name4.setText("Téléphone :");
 
         JL_Commit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icons/back.png"))); // NOI18N
         JL_Commit1.setText("Annuler");
@@ -182,45 +183,50 @@ public class Malade extends javax.swing.JFrame {
             }
         });
 
+        J_Nom.setText("malade_NOM");
+        J_Nom.setName("malade_NOM"); // NOI18N
+
+        J_Prenom.setText("malade_PRENOM");
+        J_Prenom.setName("malade_PRENOM"); // NOI18N
+
+        J_Telephone.setText("malade_TELEPHONE");
+        J_Telephone.setName("malade_TELEPHONE"); // NOI18N
+
         javax.swing.GroupLayout J_Panel_EditLayout = new javax.swing.GroupLayout(J_Panel_Edit);
         J_Panel_Edit.setLayout(J_Panel_EditLayout);
         J_Panel_EditLayout.setHorizontalGroup(
             J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(JL_EditMode_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(J_User_Name5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(J_users_UserName)
-                    .addComponent(J_Users_Pass)
-                    .addComponent(J_Users_PassConfirm)
-                    .addComponent(J_Users_Profile, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(J_Panel_EditLayout.createSequentialGroup()
-                        .addComponent(J_Users_State)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10)
+                        .addComponent(JL_EditMode_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(JL_Commit1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JL_Commit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
+                        .addContainerGap(33, Short.MAX_VALUE)
+                        .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(J_User_Name4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(J_User_Name3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(J_User_Name2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(J_User_Name, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(J_Matricule, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(J_Panel_EditLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(J_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(J_Nom, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(J_Telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(JL_Commit1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(JL_Commit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_Panel_EditLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(J_User_Name4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(J_User_Name3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(J_User_Name2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(J_User_Name, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(248, 248, 248))
         );
         J_Panel_EditLayout.setVerticalGroup(
             J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,27 +234,23 @@ public class Malade extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(JL_EditMode_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(J_User_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_users_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(J_Matricule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(J_User_Name2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_Users_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(J_Nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(J_User_Name3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_Users_PassConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(J_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(J_Users_Profile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_User_Name4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(J_User_Name5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_Users_State))
+                    .addComponent(J_User_Name4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(J_Telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(J_Panel_EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Commit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,37 +290,17 @@ public class Malade extends javax.swing.JFrame {
         J_Table_Users.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(J_Table_Users);
 
-        jPanel4.setName("SimpleSearchPanel"); // NOI18N
+        J_Search_Panel.setName("SimpleSearchPanel"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Rechercher :");
-
-        J_User_Search_Value.setText("jTextField2");
-
-        J_Users_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(J_User_Search_Value)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        javax.swing.GroupLayout J_Search_PanelLayout = new javax.swing.GroupLayout(J_Search_Panel);
+        J_Search_Panel.setLayout(J_Search_PanelLayout);
+        J_Search_PanelLayout.setHorizontalGroup(
+            J_Search_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 741, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(J_User_Search_Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(J_Users_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+        J_Search_PanelLayout.setVerticalGroup(
+            J_Search_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 57, Short.MAX_VALUE)
         );
 
         JL_Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Icons/garbage.png"))); // NOI18N
@@ -357,14 +339,14 @@ public class Malade extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(J_Search_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(JL_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(JL_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
                 .addComponent(JL_Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,7 +355,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(J_Search_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JL_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +399,7 @@ public class Malade extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -469,6 +451,10 @@ public class Malade extends javax.swing.JFrame {
         switch (mode) {
             case Add_mode: {
                 System.out.println("do insert");
+                Component[] mySelectedQueryComponents= new Component[]{
+                  J_Nom,J_Matricule,J_Prenom,J_Telephone  
+                };
+                doInsertQuery(mySelectedQueryComponents, "malade");
                 HideEditPanel();
             }
             break;
@@ -543,25 +529,20 @@ public class Malade extends javax.swing.JFrame {
     private javax.swing.JLabel JL_Edit;
     private javax.swing.JLabel JL_EditMode_Title;
     private javax.swing.JLabel JL_Exit;
+    private javax.swing.JTextField J_Matricule;
+    private javax.swing.JTextField J_Nom;
     private javax.swing.JPanel J_Panel_Edit;
+    private javax.swing.JTextField J_Prenom;
+    private javax.swing.JPanel J_Search_Panel;
     private javax.swing.JTable J_Table_Users;
+    private javax.swing.JTextField J_Telephone;
     private javax.swing.JLabel J_User_Name;
     private javax.swing.JLabel J_User_Name2;
     private javax.swing.JLabel J_User_Name3;
     private javax.swing.JLabel J_User_Name4;
-    private javax.swing.JLabel J_User_Name5;
-    private javax.swing.JTextField J_User_Search_Value;
-    private javax.swing.JComboBox<String> J_Users_Filter;
-    private javax.swing.JPasswordField J_Users_Pass;
-    private javax.swing.JPasswordField J_Users_PassConfirm;
-    private javax.swing.JComboBox<String> J_Users_Profile;
-    private javax.swing.JCheckBox J_Users_State;
-    private javax.swing.JTextField J_users_UserName;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
