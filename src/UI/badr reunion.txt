@@ -1,0 +1,1 @@
+hibernate pour connexion ....  et bean et reverse generated insertion .

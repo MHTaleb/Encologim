@@ -36,7 +36,7 @@ import javax.swing.table.TableColumn;
 public class MyDecorator {
 
     private static HashMap<Object, JFrame> Modality = new HashMap<>();
-
+    private static Object lastAdded= new Object();
   
     private static void DecorateFrame(Component[] components) {
         for (Component compenent : components) {
@@ -136,9 +136,14 @@ public class MyDecorator {
         }
     }
 
+    
+    public static Object getLastAddedFrame(){
+        return lastAdded;
+    }
     public static void undecorate(JFrame j) {
         
         JFrame parent =Modality.remove(j);
+        lastAdded=parent;
         parent.setEnabled(true);
         parent.setVisible(true);
         parent.setAlwaysOnTop(true);
@@ -184,6 +189,7 @@ public class MyDecorator {
             
             Caller.setEnabled(false);
             Caller.setAlwaysOnTop(false);
+            lastAdded=j;
         }
         j.pack();
           Method[] declaredMethods = j.getClass().getDeclaredMethods();

@@ -5,9 +5,14 @@
  */
 package DragAndDropImageUpload;
 
+import MyLibrairies.MouseEvents.ShowImage;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.dnd.DropTarget;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -23,6 +28,10 @@ public class SimpleImageUpload extends javax.swing.JPanel {
     /**
      * Creates new form SimpleImageUpload
      */
+    
+       
+        
+    
     public SimpleImageUpload() {
         initComponents();
     }
@@ -31,10 +40,16 @@ public class SimpleImageUpload extends javax.swing.JPanel {
     int width = 120,height=145;
     
     public void setup() {
-       
+        // Create the drag and drop listener
+    MyDragDropListener myDragDropListener = new MyDragDropListener();
+
+    // Connect the label with a drag and drop listener
          fl = new FlowLayout();
          Scrollable.setLayout(fl);
         Scrollable.setAutoscrolls(true);
+        myDragDropListener.setScrollable(Scrollable);
+        new DropTarget(Scrollable, myDragDropListener);
+      
     }
 
     /**
@@ -60,7 +75,7 @@ public class SimpleImageUpload extends javax.swing.JPanel {
         );
         ScrollableLayout.setVerticalGroup(
             ScrollableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addGap(0, 218, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(Scrollable);
@@ -87,13 +102,42 @@ public class SimpleImageUpload extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ADDButton, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addComponent(ADDButton, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private final void AddMignature(final String Path){
+        
+            Dimension d = new Dimension(width, height);
+            
+                JLabel mignatures ;
+            if ((Path.toLowerCase().contains(".bmp"))
+                        || (Path.toLowerCase().contains(".jpg"))
+                        || (Path.toLowerCase().contains(".png"))
+                        ) {
+
+                    ImageIcon imageIcon = new ImageIcon(Path);
+                    Image image = imageIcon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                    imageIcon = new ImageIcon(newimg);
+                    mignatures = new JLabel(imageIcon);
+                    mignatures.setPreferredSize(d);
+                    Scrollable.add(mignatures);
+                } else {
+                String[] fileNames = Path.split("\\");
+                String fileName = fileNames[fileNames.length-1];
+                    JOptionPane.showMessageDialog(this, "Fichier Invalide", "Le fichier : "
+                            + fileName + " est invalide\nVeuillez selectionner une image!", JOptionPane.ERROR_MESSAGE);
+                }
+                Scrollable.validate();
+                Scrollable.revalidate();
+                Scrollable.repaint();
+ 
+    }
+    
     private void ADDButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ADDButtonMouseClicked
          
         JFileChooser jfc = new JFileChooser();
@@ -114,6 +158,22 @@ public class SimpleImageUpload extends javax.swing.JPanel {
                     imageIcon = new ImageIcon(newimg);
                     mignatures = new JLabel(imageIcon);
                     mignatures.setPreferredSize(d);
+                    
+                    mignatures.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent me) {
+                            System.out.println("click");
+                            if (me.getButton()==1) {
+                                new ShowImage().ShowFullImage(selectedFiles.getAbsolutePath());
+                            }
+                            else{
+                                System.out.println("button"+me.getButton());
+                            }
+                        }
+
+                        
+});
+                    
                     Scrollable.add(mignatures);
                 } else {
                     JOptionPane.showMessageDialog(this, "Fichier Invalide", "Le fichier : "
@@ -127,6 +187,9 @@ public class SimpleImageUpload extends javax.swing.JPanel {
     }//GEN-LAST:event_ADDButtonMouseClicked
 
 
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ADDButton;
     private javax.swing.JPanel Scrollable;
